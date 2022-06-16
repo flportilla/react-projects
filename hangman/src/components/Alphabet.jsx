@@ -9,7 +9,14 @@ function Alphabet() {
     <div className='alphabet_container'>
       {
         alphabeth.map(letter =>
-          <button type="button" className='letter' key={letter}>{letter}</button>)
+          <button
+            type="button"
+            className='letter'
+            key={letter}>
+
+            {letter}
+
+          </button>)
       }
     </div>
   )
