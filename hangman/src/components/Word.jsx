@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../styles/Word.css'
 
-function Word({ wordToGuess }) {
+function Word({ wordToGuess, guessedLetters, }) {
 
-  console.log(wordToGuess.split('').sort())
 
+  console.log(wordToGuess)
   return (
-
     <div
       className='word_container'>
-
-      {Array(wordToGuess.length)
-        .fill(0)
-        .map((_, index) => {
-          return (
-            <div
-              key={index}
-              className='word'>
-
-            </div>
-          )
-        })}
+      {
+        wordToGuess
+          .split('')
+          .map((letter, index) => {
+            return (
+              <div
+                key={index}
+                className='word'>
+                {guessedLetters.includes(letter) ? letter : ''}
+              </div>
+            )
+          })
+      }
 
     </div>
   )

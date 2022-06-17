@@ -12,6 +12,7 @@ const endPoint = 'https://gist.githubusercontent.com/flportilla/15434508547bdcdf
 function App() {
 
   const [wordToGuess, setWord] = useState('')
+  const [guessedLetters, setGuessedLetters] = useState([])
 
   useEffect(() => {
 
@@ -24,11 +25,14 @@ function App() {
 
       setWord(randomWord)
     }
-
     fetchWord()
-
   }, [])
 
+  function handleClick(event) {
+
+    setGuessedLetters([...guessedLetters, event.target.innerText])
+
+  }
   return (
 
     <div className="App">
@@ -40,8 +44,10 @@ function App() {
       </div>
 
       <Word
-        wordToGuess={wordToGuess} />
-      <Alphabet />
+        wordToGuess={wordToGuess}
+        guessedLetters={guessedLetters}
+      />
+      <Alphabet handleClick={handleClick} />
     </div>
 
   );
