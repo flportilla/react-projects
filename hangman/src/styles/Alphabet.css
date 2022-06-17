@@ -21,3 +21,8 @@
   cursor: pointer;
   z-index: 10;
 }
+
+.pressed {
+  background-color: #f1c40f;
+  pointer-events: none;
+}

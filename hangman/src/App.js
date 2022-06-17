@@ -13,6 +13,7 @@ function App() {
 
   const [wordToGuess, setWord] = useState('')
   const [guessedLetters, setGuessedLetters] = useState([])
+  const [score, setScore] = useState(7)
 
   useEffect(() => {
 
@@ -29,10 +30,29 @@ function App() {
   }, [])
 
   function handleClick(event) {
+    const letterSelected = event.target
+    setGuessedLetters([...guessedLetters, letterSelected.innerText])
 
-    setGuessedLetters([...guessedLetters, event.target.innerText])
+    letterSelected.classList.add('pressed')
 
+    const checkScore =
+      wordToGuess
+        .split('')
+        .includes(letterSelected.innerText) ?
+        '' :
+        setScore(score - 1);
+    console.log(score)
+
+    if (score === 2) {
+      window.location.reload(false)
+      alert('You lost!')
+    }
   }
+
+
+
+
+
   return (
 
     <div className="App">
@@ -40,7 +60,9 @@ function App() {
 
       <div
         className='hangman_container'>
-        <Hangman />
+        <Hangman
+          score={score}
+        />
       </div>
 
       <Word

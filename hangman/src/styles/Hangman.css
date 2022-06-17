@@ -19,6 +19,7 @@
   border-radius: 50%;
   position: relative;
   left: 70px;
+  display: none;
 }
 
 .torso {
@@ -27,10 +28,12 @@
   border: 1px solid black;
   position: relative;
   left: 108px;
+  display: none;
 }
 
 .arms {
   transform: skewY(50deg);
+  display: none;
 }
 
 .left_arm {
@@ -42,6 +45,7 @@
   top: -120px;
   transform-origin: 100%;
   transform: rotate(-50deg);
+  display: none;
 }
 
 .right_arm {
@@ -53,6 +57,7 @@
   top: -187px;
   transform-origin: 100%;
   transform: rotate(50deg);
+  display: none;
 }
 
 .left_leg {
@@ -64,6 +69,7 @@
   top: -148px;
   transform-origin: 100%;
   transform: rotate(40deg);
+  display: none;
 }
 
 .right_leg {
@@ -75,4 +81,9 @@
   top: -220px;
   transform-origin: 100%;
   transform: rotate(-40deg);
+  display: none;
+}
+
+.show {
+  display: block;
 }

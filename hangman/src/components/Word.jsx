@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import '../styles/Word.css'
 
-function Word({ wordToGuess, guessedLetters, }) {
+function Word({ wordToGuess, guessedLetters }) {
 
 
-  console.log(wordToGuess)
   return (
     <div
       className='word_container'>
