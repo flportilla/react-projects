@@ -44,7 +44,7 @@ function App() {
     console.log(score)
 
     if (score === 2) {
-      window.location.reload(false)
+      window.location.reload()
       alert('You lost!')
     }
   }
