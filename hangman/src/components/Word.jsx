@@ -3,7 +3,6 @@ import '../styles/Word.css'
 
 function Word({ wordToGuess, guessedLetters }) {
 
-
   return (
     <div
       className='word_container'>
