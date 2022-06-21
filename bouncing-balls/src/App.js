@@ -8,7 +8,6 @@ const canvasStyle = {
 
 
 function App() {
-  console.log(canvasStyle)
   return (
     <div className="App">
       <Canvas style={canvasStyle} />
