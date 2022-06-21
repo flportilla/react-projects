@@ -15,21 +15,17 @@ function Canvas({ style }) {
     getReady()
   })
 
-
   //create a class Ball to further use
   class Ball {
     constructor(xPos, yPos) {
 
       const randomDirection = Math.floor(Math.random() * 10 + 5)
 
-
       this.xPos = xPos;
       this.yPos = yPos;
       this.radius = 5;
       this.color = 'yellow';
       this.speed = 1
-
-
 
       this.dx = Math.floor(Math.random() * 2) === 0 ?
         randomDirection :
@@ -38,7 +34,6 @@ function Canvas({ style }) {
       this.dy = Math.floor(Math.random() * 2) === 0 ?
         randomDirection :
         randomDirection * -1;
-
 
     }
     draw(context) {
@@ -52,20 +47,23 @@ function Canvas({ style }) {
 
     move(context) {
 
+      //when the ball reaches the top or bottom, change the direction to recreate the rebound effect
       if (this.yPos + this.dy < 0 || this.yPos + this.dy > canvas.height) {
         this.dy = -this.dy
       }
 
+      //when the ball reaches the left or right, change the direction to recreate the rebound effect
       if (this.xPos + this.dx > canvas.width || this.xPos + this.dx < 0) {
         this.dx = -this.dx;
       }
+      //draw the ball adding the new position
       this.draw(context)
       this.xPos += this.dx
       this.yPos += this.dy
     }
   }
 
-
+  //Array to save the new objects
   const balls = []
 
   function handleClick(e) {
@@ -74,6 +72,7 @@ function Canvas({ style }) {
     const x = e.clientX;
     const y = e.clientY;
 
+    //update x and y to move the second ball slightly to a different location
     const randomX = Math.floor(Math.random() * 10) + x
     const randomY = Math.floor(Math.random() * 10) + y
 
@@ -86,16 +85,15 @@ function Canvas({ style }) {
     balls.push(ball1)
     balls.push(ball2)
 
-
   }
 
+  //move the balls randombly through the canvas
   function updatePosition() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     balls.forEach(ball => ball.move(ctx))
   };
 
   setInterval(updatePosition, 30)
-
 
   return (
     <canvas
@@ -105,51 +103,8 @@ function Canvas({ style }) {
       style={{ backgroundColor: '#101010' }}
       ref={canvasRef}
     >
-
     </canvas>
   )
 }
 
 export default Canvas
-
-// function handleLoop(e) {
-
-//   let x = initialCoords.x = e.pageX
-//   let y = initialCoords.y = e.pageY
-
-//   vy = Math.floor(Math.random() * 2) === 0 ?
-//     randomDirection :
-//     randomDirection * -1;
-
-//   vx = Math.floor(Math.random() * 2) === 0 ?
-//     randomDirection :
-//     randomDirection * -1;
-
-//   intervalId = setInterval(() => drawBall(x, y), 30)
-
-// }
-
-// function drawBall(x, y) {
-
-//   //stop the ball to increase speed movement to infinite
-//   if (intervalId >= 5) clearInterval(intervalId)
-
-//   ctx.clearRect(0, 0, canvas.width, canvas.height)
-//   ctx.beginPath();
-//   ctx.arc(initialCoords.x, initialCoords.y, ballRadius, 0, Math.PI * 2, false);
-//   ctx.fillStyle = "yellow";
-//   ctx.fill();
-//   ctx.closePath();
-
-//   initialCoords.x += vx;
-//   initialCoords.y += vy;
-
-//   if (initialCoords.y + vy < 0 || initialCoords.y + vy > canvas.height) {
-//     vy = -vy
-//   }
-
-//   if (initialCoords.x + vx > canvas.width || initialCoords.x + vx < 0) {
-//     vx = -vx;
-//   }
-
-// }
