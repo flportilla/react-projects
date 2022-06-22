@@ -7,7 +7,12 @@ function RecordName() {
       className='title_container'
     >
       <label htmlFor='record_name'>Title: </label>
-      <input name='record_name' type={'text'} value="my_recording" />
+      <input
+        name='record_name'
+        type={'text'}
+        placeholder="my_recording"
+        required
+      />
     </div>
   )
 }
