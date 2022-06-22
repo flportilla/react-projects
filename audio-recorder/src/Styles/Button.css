@@ -1,0 +1,43 @@
+.btn_container {
+  background-color: #6d717a;
+}
+
+.btn {
+  border: none;
+  font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+  text-decoration: none;
+  letter-spacing: 2px;
+  cursor: pointer;
+  background-color: #00c9ff;
+  color: #1f2328;
+  font-size: 13px;
+  padding: 0 10px;
+  line-height: 30px;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #00a1cc;
+  border-radius: 3px;
+  margin-left: 8px;
+
+}
+
+
+.btn:disabled {
+  border: none;
+  font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+  text-decoration: none;
+  letter-spacing: 2px;
+  cursor: default;
+  font-size: 13px;
+  padding: 0 10px;
+  line-height: 30px;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  border-top: 1px solid #555;
+  border-bottom: none;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5) inset;
+  background-color: #bbb;
+  color: #555;
+  display: inline-block;
+  vertical-align: middle;
+}
