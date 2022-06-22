@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "react-voice-recorder": "^2.1.2"
+  }
+}
