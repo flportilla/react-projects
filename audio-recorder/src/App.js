@@ -1,76 +1,51 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect, } from 'react';
 import Button from './Components/Button';
 import Header from './Components/Header';
 import RecordName from './Components/RecordName';
 import RecordingLight from './Components/RecordingLight';
 import Recordings from './Components/Recordings';
-import { ReactMediaRecorder } from 'react-media-recorder'
+import { useReactMediaRecorder } from 'react-media-recorder'
+import Audios from './Components/Audios'
+
 
 function App() {
 
   const [btnState, setBtnState] = useState(false)
   const [recLight, setRecLight] = useState('')
-  const [records, setRecords] = useState('')
+  const [recordList, setRecords] = useState([])
 
-  function handleStart(e) {
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
+
+  function handleRecord(e) {
 
     setBtnState(true)
     setRecLight('recording')
+    startRecording()
 
   }
 
   function handleStop(e) {
-
     setBtnState(false)
     setRecLight('')
-
+    stopRecording()
+    setRecords([...recordList, mediaBlobUrl])
   }
 
   return (
     <div className="App">
       <Header />
-      <div className='form'>
+      <form className='form'>
         <RecordName />
         <div className='btn_container'>
-
           <RecordingLight setLight={recLight} />
-          <ReactMediaRecorder
-
-            audio
-
-            render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
-              <>
-
-                {mediaBlobUrl ? setRecords(mediaBlobUrl) : ''}
-
-                <Button
-                  onClick={() => {
-                    startRecording();
-                    handleStart();
-                  }}
-                  btnState={btnState}
-                >
-                  Record status
-                </Button>
-
-                <Button onClick={() => {
-                  stopRecording();
-                  handleStop()
-                }}
-                  btnState={!btnState}
-                >
-                  Stop
-                </Button>
-              </>
-            )}
-
-          />
+          <Button onClick={handleRecord} btnState={btnState}> Record</Button>
+          <Button onClick={handleStop} btnState={!btnState}> Stop</Button>
         </div>
-      </div>
+      </form>
       <Recordings />
-      <audio src={records} controls></audio>
+      <Audios source={recordList} />
     </div>
   );
 }
