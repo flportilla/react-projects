@@ -6,13 +6,15 @@ import Header from './Components/Header';
 import RecordName from './Components/RecordName';
 import RecordingLight from './Components/RecordingLight';
 import Recordings from './Components/Recordings';
+import { ReactMediaRecorder } from 'react-media-recorder'
 
 function App() {
 
   const [btnState, setBtnState] = useState(false)
   const [recLight, setRecLight] = useState('')
+  const [records, setRecords] = useState('')
 
-  function handleRecord(e) {
+  function handleStart(e) {
 
     setBtnState(true)
     setRecLight('recording')
@@ -29,15 +31,46 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <form className='form'>
+      <div className='form'>
         <RecordName />
         <div className='btn_container'>
+
           <RecordingLight setLight={recLight} />
-          <Button onClick={handleRecord} btnState={btnState}> Record</Button>
-          <Button onClick={handleStop} btnState={!btnState}> Stop</Button>
+          <ReactMediaRecorder
+
+            audio
+
+            render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
+              <>
+
+                {mediaBlobUrl ? setRecords(mediaBlobUrl) : ''}
+
+                <Button
+                  onClick={() => {
+                    startRecording();
+                    handleStart();
+                  }}
+                  btnState={btnState}
+                >
+                  Record status
+                </Button>
+
+                <Button onClick={() => {
+                  stopRecording();
+                  handleStop()
+                }}
+                  btnState={!btnState}
+                >
+                  Stop
+                </Button>
+              </>
+            )}
+
+          />
         </div>
-      </form>
+      </div>
       <Recordings />
+      <audio src={records} controls></audio>
     </div>
   );
 }

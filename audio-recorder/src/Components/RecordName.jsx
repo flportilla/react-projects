@@ -11,7 +11,7 @@ function RecordName() {
         name='record_name'
         type={'text'}
         placeholder="my_recording"
-        required
+        value={'My_Recording'}
       />
     </div>
   )

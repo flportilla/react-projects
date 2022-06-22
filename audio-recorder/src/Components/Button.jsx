@@ -8,7 +8,7 @@ function Button({ children, btnState, onClick }) {
     <button
       disabled={btnState}
       className="btn"
-      type='submit'
+      type='button'
       onClick={onClick}
     >
       {children}
