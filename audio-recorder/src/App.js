@@ -23,13 +23,12 @@ function App() {
     setBtnState(true)
     setRecLight('recording')
     startRecording()
-
   }
 
   function handleStop(e) {
+    stopRecording()
     setBtnState(false)
     setRecLight('')
-    stopRecording()
     setRecords([...recordList, mediaBlobUrl])
   }
 
