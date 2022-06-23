@@ -52,6 +52,7 @@ function App() {
         score={score}
         mouseY={mouseYPos}
       />
+
       <Score score={score} />
     </div>
   );

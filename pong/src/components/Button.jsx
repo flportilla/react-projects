@@ -1,5 +1,6 @@
 import React from 'react'
 import '../styles/Button.css'
+import GameOver from './GameOver'
 
 function Button({ fade, context, canvas, setScore, score, mouseY }) {
 
@@ -17,7 +18,6 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
   const paddles = {
     height: 76,
     width: 10,
-
   }
 
   function drawBall(xPos, yPos) {
@@ -72,7 +72,6 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
     //excecute the function each certain ammount of time to refresh the ball position
     intervalId = setInterval(() => {
 
-
       //draw the ball
       drawBall(
         xPos += dx < 0 ? dx - score / 2 : dx + score / 2,
@@ -87,7 +86,7 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
       }
 
       //check if the ball hit a wall on X position
-      else if (xPos + dx > getCanvas().width || xPos + dx < 0) {
+      else if (xPos + dx > (getCanvas().width - ballRadius) || xPos + (dx - ballRadius) < 0) {
 
         //get the coords for the paddles position and ball impact on Y axis
         const impact = yPos
@@ -103,7 +102,10 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
         //if you miss, game over
         else {
           clearInterval(intervalId)
-          alert('Game Over')
+          alert('Game Over, try again?')
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000)
         }
       }
     }, 20);
