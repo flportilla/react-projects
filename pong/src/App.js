@@ -6,6 +6,7 @@ import Score from './components/Score';
 function App() {
 
   const [score, setScore] = useState(0)
+  const [mouseYPos, setMouseY] = useState(0)
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
 
@@ -26,6 +27,9 @@ function App() {
     return canvas
   }
 
+  function mouseY(e) {
+    setMouseY(e.clientY - canvasHelper().getBoundingClientRect().y);
+  }
 
   return (
     <div className="App">
@@ -36,11 +40,18 @@ function App() {
           width='600'
           style={{ border: '1px solid #7a7c8f' }}
           ref={canvasRef}
+          onMouseMove={mouseY}
         >
         </canvas>
       </div>
 
-      <StartScreen canvasRef={canvasHelper} contextRef={contextHelper} setScore={setScore} score={score} />
+      <StartScreen
+        canvasRef={canvasHelper}
+        contextRef={contextHelper}
+        setScore={setScore}
+        score={score}
+        mouseY={mouseYPos}
+      />
       <Score score={score} />
     </div>
   );

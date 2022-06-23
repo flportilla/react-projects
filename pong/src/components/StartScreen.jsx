@@ -2,9 +2,10 @@ import React, { useRef, useEffect, useState } from 'react'
 import Button from './Button'
 import '../styles/startScreen.css'
 
-function StartScreen({ canvasRef, contextRef, setScore, score }) {
+function StartScreen({ canvasRef, contextRef, setScore, score, mouseY }) {
 
   const containerRef = useRef(null)
+
   let container;
   useEffect(() => { container = containerRef.current }, [])
 
@@ -22,6 +23,7 @@ function StartScreen({ canvasRef, contextRef, setScore, score }) {
           context={contextRef}
           canvas={canvasRef}
           fade={fadeEffect}
+          mouseY={mouseY}
         />
       </div>
     </div>
