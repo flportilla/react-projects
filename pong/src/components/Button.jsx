@@ -105,7 +105,7 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
           alert('Game Over, try again?')
           setTimeout(() => {
             window.location.reload();
-          }, 2000)
+          }, 500)
         }
       }
     }, 20);
