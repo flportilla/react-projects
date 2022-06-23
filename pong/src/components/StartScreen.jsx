@@ -5,16 +5,11 @@ import '../styles/startScreen.css'
 function StartScreen() {
 
   const containerRef = useRef(null)
-
   let container;
-  useEffect(() => {
-    container = containerRef.current
-  }, [])
+  useEffect(() => { container = containerRef.current }, [])
 
-  const fadeEffect = () =>
-    container.classList.add('hidden');
-  const hide = () =>
-    container.classList.add('remove');
+  const fadeEffect = () => container.classList.add('hidden');
+  const hide = () => container.classList.add('remove');
 
   return (
     <div onTransitionEnd={hide} ref={containerRef} className="start_container">
