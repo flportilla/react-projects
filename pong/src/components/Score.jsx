@@ -1,9 +1,9 @@
 import React from 'react'
 import '../styles/Canvas.css'
 
-function Score() {
+function Score({ score }) {
   return (
-    <div className='score'>Score: {`${0}`}</div>
+    <div className='score'>Score: {`${score}`}</div>
   )
 }
 

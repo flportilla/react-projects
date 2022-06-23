@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Button from './Button'
 import '../styles/startScreen.css'
 
-function StartScreen() {
+function StartScreen({ canvasRef, contextRef, setScore, score }) {
 
   const containerRef = useRef(null)
   let container;
@@ -16,7 +16,13 @@ function StartScreen() {
       <div>
         <h1>PONG</h1>
         <h2>Move your mouse to keep the ball alive with your twin paddles</h2>
-        <Button fade={fadeEffect} />
+        <Button
+          setScore={setScore}
+          score={score}
+          context={contextRef}
+          canvas={canvasRef}
+          fade={fadeEffect}
+        />
       </div>
     </div>
 
