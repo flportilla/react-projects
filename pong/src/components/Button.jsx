@@ -9,8 +9,8 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
   const getInitialY = () => Math.floor(Math.random() * (getCanvas().height - 25))
 
   //Speed
-  let dx = 5;
-  let dy = -5;
+  let dx = 1;
+  let dy = -1;
 
   const ballRadius = 15;
   let intervalId;
@@ -51,6 +51,7 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
   }
 
   function handleClicks() {
+
     //Hide instructions
     fade();
 
@@ -71,8 +72,11 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
     //excecute the function each certain ammount of time to refresh the ball position
     intervalId = setInterval(() => {
 
+
       //draw the ball
-      drawBall(xPos += dx, yPos += dy)
+      drawBall(
+        xPos += dx < 0 ? dx - score / 2 : dx + score / 2,
+        yPos += dy < 0 ? dy - score / 2 : dy + score / 2)
 
       //draw the paddles
       drawPaddle(mouseYMov)
@@ -90,20 +94,17 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
         const paddleYStart = mouseYMov
         const paddleYEnd = mouseYMov + 76
 
-
         //if the ball matches with the paddle position, plus one point and bounce
         if (impact > paddleYStart && impact < paddleYEnd) {
           setScore(score++)
           dx = -dx
         }
 
-        //if
+        //if you miss, game over
         else {
           clearInterval(intervalId)
           alert('Game Over')
         }
-
-
       }
     }, 20);
   }
