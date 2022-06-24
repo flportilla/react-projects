@@ -1,0 +1,56 @@
+.instructions {
+  font-weight: normal;
+  text-align: center;
+  width: 580px;
+  height: fit-content;
+  margin: 120px auto;
+  padding: 40px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgb(0 0 0 / 50%) inset;
+  color: #333;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.instructions>h1 {
+  text-align: center;
+  letter-spacing: 1px;
+  color: #333;
+  font-size: 30px;
+  margin-bottom: 15px;
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.instructions>h2 {
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: inherit;
+
+}
+
+.instructions>p {
+
+  font-family: inherit;
+  margin: 0 50px;
+  padding: 40px 0 20px 0px;
+  line-height: 22px;
+  font-weight: inherit;
+
+}
+
+.instructions>button {
+  cursor: pointer;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #1f1f37;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.43);
+  border-radius: 5px;
+  background-color: #0accb5;
+  border-bottom: 1px solid #089b8a;
+}
