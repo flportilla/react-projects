@@ -33,13 +33,11 @@
 }
 
 .instructions>p {
-
   font-family: inherit;
   margin: 0 50px;
   padding: 40px 0 20px 0px;
   line-height: 22px;
   font-weight: inherit;
-
 }
 
 .instructions>button {
@@ -53,4 +51,13 @@
   border-radius: 5px;
   background-color: #0accb5;
   border-bottom: 1px solid #089b8a;
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity ease 0.5s;
+}
+
+.hide {
+  display: none;
 }
