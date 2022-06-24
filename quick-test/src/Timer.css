@@ -1,0 +1,8 @@
+.game_container {
+  z-index: 0;
+  display: none;
+}
+
+.show {
+  display: block;
+}

@@ -6,11 +6,11 @@
 
   .App {
     height: 100vmin;
-
   }
 
   .instructions_container {
     background-color: #1f1f37;
     height: 100%;
     display: flex;
+    z-index: 10;
   }
