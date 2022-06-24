@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import './App.css';
 import Instructions from './Instructions';
-import Timer from './Timer'
+import Game from './Game'
 
 function App() {
-  const [timerObj, setTimerObj] = useState()
+  const [gameObj, setgameObj] = useState()
 
   return (
     <div className="App">
-      <Instructions timerObj={timerObj} />
-      <Timer setTimerObj={setTimerObj} />
+      <Instructions gameObj={gameObj} />
+      <Game setgameObj={setgameObj} />
     </div>
   );
 }

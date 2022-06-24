@@ -12,7 +12,8 @@ function Instructions(props) {
 
   function handleTransitions(e) {
     hide(e);
-    show(props.timerObj.current)
+    show(props.gameObj.current);
+    console.log(props.gameObj.current)
   }
   return (
     <>
