@@ -1,5 +1,8 @@
 import React, { useRef, useEffect } from 'react'
 import '../Styles/Game.css'
+import Timer from './Timer'
+import Text from './Text'
+import InputTest from './InputTest'
 
 function Game(props) {
   const gameRef = useRef(null)
@@ -10,11 +13,11 @@ function Game(props) {
 
   return (
     <div ref={gameRef} className='game_container'>
-      <div className='timeTexArea'>
-        timer
-        Text
+      <div className='timeTextArea'>
+        <Timer />
+        <Text />
       </div>
-      input
+      <InputTest />
     </div>
   )
 }

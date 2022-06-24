@@ -1,8 +1,57 @@
 .game_container {
   z-index: 0;
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .show {
-  display: block;
+  display: flex;
+}
+
+.timeTextArea {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 850px;
+  gap: 16px;
+}
+
+.text_area_container {
+  margin-top: 40px;
+  width: 700px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.timeTextArea>div>p {
+  letter-spacing: 1px;
+  color: #333;
+  width: 600px;
+  font-size: 14px;
+  line-height: 18px;
+
+
+}
+
+.text_area_container>textarea {
+  width: 600px;
+  height: 156px;
+}
+
+.timer {
+  width: 100px;
+  height: 40px;
+  margin-top: 80px;
+  text-align: center;
+  font-family: inherit;
+  line-height: 40px;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  background-color: #3a3a68;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6) inset;
+  line-height: 40px;
 }
