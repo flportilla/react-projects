@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import './Game.css'
+import '../Styles/Game.css'
 
 function Game(props) {
   const gameRef = useRef(null)

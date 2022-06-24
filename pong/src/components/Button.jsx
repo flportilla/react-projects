@@ -91,7 +91,7 @@ function Button({ fade, context, canvas, setScore, score, mouseY }) {
         //get the coords for the paddles position and ball impact on Y axis
         const impact = yPos
         const paddleYStart = mouseYMov
-        const paddleYEnd = mouseYMov + 76
+        const paddleYEnd = mouseYMov + paddles.height
 
         //if the ball matches with the paddle position, plus one point and bounce
         if (impact > paddleYStart && impact < paddleYEnd) {

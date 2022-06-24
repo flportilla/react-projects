@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Instructions from './Instructions';
-import Game from './Game'
+import Instructions from './Components/Instructions';
+import Game from './Components/Game'
 
 function App() {
   const [gameObj, setgameObj] = useState()
@@ -13,5 +13,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

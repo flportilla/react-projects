@@ -4,6 +4,11 @@ import Button from './components/Button';
 import Counter from './components/Counter';
 import { useState } from 'react';
 
+const divStyle = {
+  backgroundColor: 'red',
+  color: 'green'
+}
+
 
 function App() {
 
@@ -36,6 +41,8 @@ function App() {
           isClickingButton={true}
           handleClick={handleClick}
         />
+
+        <div style={ }
 
         <Button
           buttonText='Reset'
