@@ -36,9 +36,13 @@ function InputTest(props) {
 
     //slice to the input array length, filter if the word is in the text array and check if the word is in the input array
 
-    const correctWords = textToArr.slice(0, inputValue.length).filter(word => inputValue.includes(word)).length;
+    const correctWords = textToArr.slice(0, inputValue.length).filter(word => inputValue.includes(word)).length
 
-    alert(`You got ${correctWords} words per minute!`)
+    setTimeout(() => {
+      alert(`You got ${correctWords} per minute, try again?`)
+      window.location.reload();
+    }, 500)
+    // alert(`You got ${result} words per minute!`)
   }
 
   return (
