@@ -14,10 +14,18 @@ function Game(props) {
   return (
     <div ref={gameRef} className='game_container'>
       <div className='timeTextArea'>
-        <Timer />
-        <Text />
+        <Timer timer={props.timer}
+
+        />
+        <Text text={props.text} />
       </div>
-      <InputTest />
+      <InputTest
+        settextareaVal={props.settextareaVal}
+        textareaVal={props.textareaVal}
+        settimer={props.settimer}
+        timer={props.timer}
+        text={props.text}
+      />
     </div>
   )
 }

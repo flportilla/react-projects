@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Timer() {
+function Timer(props) {
   return (
-    <div className='timer'>1:00</div>
+    <div className='timer'>{`${props.timer}`}</div>
   )
 }
 
