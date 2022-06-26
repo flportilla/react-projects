@@ -1,4 +1,5 @@
 import './App.css';
+import Canvas from './Canvas';
 
 function App() {
 
@@ -15,12 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <canvas
-        width={canvasStyle.width}
-        height={canvasStyle.height}
-        style={{ backgroundColor: '#252525' }}
-      />
-
+      <Canvas style={canvasStyle} />
     </div>
   );
 }
