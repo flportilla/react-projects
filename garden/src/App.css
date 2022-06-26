@@ -9,3 +9,16 @@
   display: flex;
   width: 100%;
 }
+
+canvas {
+  opacity: 90%;
+  z-index: -10;
+  position: absolute;
+}
+
+.topCanvas {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
