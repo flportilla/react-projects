@@ -15,19 +15,13 @@ function App() {
   }
 
   function handleClick(e) {
-    const ctx = e.target.getContext('2d');
-    ctx.beginPath();
-    ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI)
-    ctx.fillStyle = randomColor();
-    ctx.fill();
-    balls.push({ x: e.clientX, y: e.clientY, color: 'red' })
-
+    balls.push({ x: e.clientX, y: e.clientY, color: randomColor(), radius: 10, ballPosition: 0 });
   }
 
   return (
     <div className="App">
       <canvas width={canvasStyle.width} height={canvasStyle.height} className='topCanvas' onClick={handleClick} />
-      <Canvas randomColor={randomColor} balls={balls} style={canvasStyle} />
+      <Canvas onClick={handleClick} randomColor={randomColor} balls={balls} style={canvasStyle} />
 
     </div>
   );
