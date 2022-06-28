@@ -2,56 +2,24 @@ import './App.css';
 import { useEffect, useState, useRef } from 'react';
 import StartScreen from './components/StartScreen';
 import Score from './components/Score';
+import Game from './components/Game'
+
+const STATUS = {
+  IDLE: 'IDLE',
+  GAMING: "GAMING"
+}
 
 function App() {
+  const [status, setStatus] = useState(STATUS.IDLE)
 
-  const [score, setScore] = useState(0)
-  const [mouseYPos, setMouseY] = useState(0)
-  const canvasRef = useRef(null)
-  const contextRef = useRef(null)
-
-  useEffect(() => {
-
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
-    contextRef.current = context
-  }, [canvasRef, contextRef])
-
-  const contextHelper = () => {
-    const contex = contextRef.current
-    return contex
-  }
-
-  const canvasHelper = () => {
-    const canvas = canvasRef.current
-    return canvas
-  }
-
-  function mouseY(e) {
-    setMouseY(e.clientY - canvasHelper().getBoundingClientRect().y);
-  }
+  const [score, setScore] = useState(1)
 
   return (
     <div className="App">
 
-      <div className="container">
-        <canvas
-          height='500'
-          width='600'
-          style={{ border: '1px solid #7a7c8f' }}
-          ref={canvasRef}
-          onMouseMove={mouseY}
-        >
-        </canvas>
-      </div>
+      {status === STATUS.IDLE && <StartScreen onStart={() => setStatus(STATUS.GAMING)} />}
 
-      <StartScreen
-        canvasRef={canvasHelper}
-        contextRef={contextHelper}
-        setScore={setScore}
-        score={score}
-        mouseY={mouseYPos}
-      />
+      {status === STATUS.GAMING && <Game score={score} setScore={setScore} />}
 
       <Score score={score} />
     </div>
@@ -61,6 +29,8 @@ function App() {
 export default App;
 
 
+// 1. canvas: start 
+// 2: game
 
 // 
 // 

@@ -1,12 +1,12 @@
 import React from 'react'
 import '../Styles/Button.css'
 
-function Button({ children, btnState, onClick }) {
+function Button({ children, disabled, onClick }) {
 
   return (
 
     <button
-      disabled={btnState}
+      disabled={disabled}
       className="btn"
       type='button'
       onClick={onClick}

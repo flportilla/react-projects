@@ -1,51 +1,46 @@
 import React, { useRef, useEffect } from 'react'
 
-function Canvas(props) {
-  let isTouching = false;
-
+function Canvas({ balls }) {
   const canvasStyle = {
     height: Number(`${window.innerHeight}`),
     width: Number(`${window.innerWidth}`),
   };
 
-  function drawBigCircle(ctx, frameCount) {
-    const ballsCopy = props.balls.slice();
-
-
+  function drawBigCircle(ctx, circleRadius) {
     ctx.clearRect(0, 0, canvasStyle.width, canvasStyle.height);
     ctx.beginPath();
-    ctx.arc(ctx.canvas.width / 2, ctx.canvas.height / 2, frameCount, 0, 2 * Math.PI)
+    ctx.arc(ctx.canvas.width / 2, ctx.canvas.height / 2, circleRadius, 0, 2 * Math.PI)
     ctx.strokeStyle = 'white';
     ctx.stroke();
+  }
 
-    ballsCopy.map((ball, index) => {
+  function drawBalls(ctx, circleRadius) {
+    balls.map((ball, index) => {
       ctx.beginPath();
       ctx.arc(ball.x, ball.y, 10, 0, 2 * Math.PI)
       ctx.fillStyle = ball.color;
       ctx.fill();
-      const ballPosition = Math.sqrt(Math.pow(ball.x - ctx.canvas.width / 2, 2) + Math.pow(ball.y - ctx.canvas.height / 2, 2))
+      ctx.closePath();
 
-      if (ballPosition > frameCount - 10 && ballPosition < frameCount) {
-        isTouching = true;
-      }
-      else {
-        isTouching = false;
-      }
-
-      handleCollision(isTouching, ctx, ballPosition)
+      handleCollision(ctx, ball, circleRadius)
     })
-
   }
 
-  function handleCollision(flag, ctx, ballPosition) {
-    if (flag) {
+  function handleCollision(ctx, ball, circleRadius) {
+    const { width, height } = ctx.canvas
+    const { x, y } = ball
+    const ballPosition = Math.sqrt(Math.pow(x - width / 2, 2) + Math.pow(y - height / 2, 2))
+
+    if (ballPosition > circleRadius - 10 && ballPosition < circleRadius) {
+      console.log(ballPosition)
+      debugger
       ctx.shadowColor = 'white';
       ctx.shadowBlur = 10;
-    }
-    else {
-      ctx.shadowColor = 'black';
+    } else {
+      ctx.shadowColor = 'black'
       ctx.shadowBlur = 0;
     }
+
 
   }
 
@@ -54,16 +49,21 @@ function Canvas(props) {
   useEffect(() => {
 
     const canvas = canvasRef.current
+    if (!canvas) return
+
     const context = canvas.getContext('2d')
-    let frameCount = 0
+    let circleRadius = 0
     let animationFrameId
 
     const render = () => {
-      frameCount++
-      drawBigCircle(context, frameCount)
-      if (frameCount > canvasStyle.width / 2) {
-        frameCount = 0;
+      circleRadius++
+      drawBigCircle(context, circleRadius)
+      drawBalls(context, circleRadius)
+
+      if (circleRadius > canvasStyle.width / 2) {
+        circleRadius = 0;
       }
+
       animationFrameId = window.requestAnimationFrame(render)
     }
     render()
@@ -79,8 +79,7 @@ function Canvas(props) {
       width={canvasStyle.width}
       height={canvasStyle.height}
       style={{ backgroundColor: '#252525' }}
-    > </canvas>
-
+    />
   )
 }
 

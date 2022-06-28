@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 
 
-function Audios({ source }) {
-  console.log(source)
+function Audios({ sources }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {
-        source
+        sources
           .map((source, index) => {
-            if (index !== 0) return <audio key={index} src={source} controls></audio>
+            return <audio key={index} src={source} controls ></audio>
           })
 
       }
-    </div>
+    </div >
   )
 }
 

@@ -25,35 +25,36 @@ function App() {
       const randomWord = data[Math.floor(Math.random() * data.length)]
 
       setWord(randomWord)
+      console.log(randomWord)
     }
     fetchWord()
   }, [])
 
   function handleClick(event) {
     const letterSelected = event.target
-    setGuessedLetters([...guessedLetters, letterSelected.innerText])
+    const letter = letterSelected.innerText
+    const word = wordToGuess.split('')
+    if (word.includes(letter)) {
 
-    letterSelected.classList.add('pressed')
-
-    const checkScore =
-      wordToGuess
-        .split('')
-        .includes(letterSelected.innerText) ?
-        '' :
-        setScore(score - 1);
-    console.log(score)
-
-    if (score === 2) {
-      window.location.reload()
-      alert('You lost!')
+    } else {
+      setScore(score - 1)
     }
+
+    setGuessedLetters((list) => [...list, letter])
+
+    console.log(score)
   }
 
+  useEffect(() => {
+    if (score === 0) {
+      alert("You LosT")
+      window.location.reload()
+    }
+  }, [score])
   return (
 
     <div className="App">
       <Header />
-
       <div
         className='hangman_container'>
         <Hangman
@@ -65,7 +66,7 @@ function App() {
         wordToGuess={wordToGuess}
         guessedLetters={guessedLetters}
       />
-      <Alphabet handleClick={handleClick} />
+      <Alphabet guessedLetters={guessedLetters} handleClick={handleClick} />
     </div>
 
   );

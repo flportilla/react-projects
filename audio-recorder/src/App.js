@@ -9,27 +9,33 @@ import Recordings from './Components/Recordings';
 import { useReactMediaRecorder } from 'react-media-recorder'
 import Audios from './Components/Audios'
 
+const STATUS = {
+  IDLE: 'IDLE',
+  RECODING: 'RECODING',
+  ERROR: 'ERROR'
+}
 
 function App() {
 
-  const [btnState, setBtnState] = useState(false)
-  const [recLight, setRecLight] = useState('')
+  const [status, setStatus] = useState(STATUS.IDLE)
+
   const [recordList, setRecords] = useState([])
 
-  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
+  const { startRecording, stopRecording } = useReactMediaRecorder({
+    audio: true,
+    onStop(blob) {
+      setRecords([...recordList, blob])
+    }
+  });
 
   function handleRecord(e) {
-
-    setBtnState(true)
-    setRecLight('recording')
+    setStatus(STATUS.RECODING)
     startRecording()
   }
 
   function handleStop(e) {
+    setStatus(STATUS.IDLE)
     stopRecording()
-    setBtnState(false)
-    setRecLight('')
-    setRecords([...recordList, mediaBlobUrl])
   }
 
   return (
@@ -38,13 +44,13 @@ function App() {
       <form className='form'>
         <RecordName />
         <div className='btn_container'>
-          <RecordingLight setLight={recLight} />
-          <Button onClick={handleRecord} btnState={btnState}> Record</Button>
-          <Button onClick={handleStop} btnState={!btnState}> Stop</Button>
+          <RecordingLight className={status === STATUS.RECODING ? 'recording' : ''} />
+          <Button onClick={handleRecord} disabled={status === STATUS.RECORDING}> Record</Button>
+          <Button onClick={handleStop} disabled={status === STATUS.IDLE}> Stop</Button>
         </div>
       </form>
       <Recordings />
-      <Audios source={recordList} />
+      <Audios sources={recordList} />
     </div>
   );
 }
