@@ -1,46 +1,74 @@
 import { useState } from 'react'
+import Filter from './Components/Filter'
+import Form from './Components/Form'
+import PersonInfo from './Components/PersonInfo'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ])
-  const [newName, setNewName] = useState('Enter name...')
 
-  function getName(event) {
-    setNewName(event.target.value)
-  }
+  //States
+  const [newName, setNewName] = useState('Name')
+  const [newNumber, setNewNumber] = useState('000-123456')
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ])
+
+  //Functions
+  const getName = (event) => setNewName(event.target.value)
+  const getNumber = (event) => setNewNumber(event.target.value)
 
   function addPerson(event) {
+
     event.preventDefault()
-    setPersons([...persons, { name: newName }])
+
+    const personObject = {
+      name: newName,
+      number: newNumber,
+    }
+
+    if (persons.find(person => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`)
+      return
+    }
+
+    setPersons(persons.concat(personObject))
     setNewName('')
+    setNewNumber('')
   }
+
+  function filter(event) {
+    const filterValue = event.target.value
+
+    const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filterValue.toLowerCase()))
+
+    setPersons(filteredPersons)
+    if (!filterValue) {
+      window.location.reload()
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Filter
+        onChange={filter}
+      />
 
-      <form>
-        <div>
-          name:
-          <input
-            onChange={getName}
-            value={newName}
-          />
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            onClick={addPerson}
-          >
-            add</button>
-        </div>
-      </form>
+      <h2>add a new</h2>
+      <Form
+        addPerson={addPerson}
+        getName={getName}
+        getNumber={getNumber}
+        newName={newName}
+        newNumber={newNumber}
+      />
 
       <h2>Numbers</h2>
-      {persons.map((person, index) => {
-        return <div key={index}>{person.name}</div>
-      })}
+      <PersonInfo
+        persons={persons}
+      />
     </div>
   )
 }
