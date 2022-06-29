@@ -1,11 +1,11 @@
 import React from 'react'
 
-function PersonInfo({ persons }) {
+function PersonInfo({ list }) {
 
   return (
     <>
       {
-        persons.map(person => {
+        list.map(person => {
           return <div key={person.id}>{person.name} - {person.number}</div>
         })
       }

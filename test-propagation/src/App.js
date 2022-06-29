@@ -15,6 +15,9 @@ const App = () => {
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
 
+  const [list, setList] = useState(persons)
+
+
   //Functions
   const getName = (event) => setNewName(event.target.value)
   const getNumber = (event) => setNewNumber(event.target.value)
@@ -34,19 +37,19 @@ const App = () => {
     }
 
     setPersons(persons.concat(personObject))
+    setList([...list, personObject])
+    console.log(list)
     setNewName('')
     setNewNumber('')
   }
 
   function filter(event) {
-    const filterValue = event.target.value
+    const filterValue = (event.target.value).toLowerCase()
 
-    const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filterValue.toLowerCase()))
-
-    setPersons(filteredPersons)
-    if (!filterValue) {
-      window.location.reload()
-    }
+    const filterDoneRight = persons.filter(person => {
+      return (person.name).toLowerCase().includes(filterValue)
+    })
+    setList([...filterDoneRight])
   }
 
   return (
@@ -67,7 +70,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <PersonInfo
-        persons={persons}
+        list={list}
       />
     </div>
   )
