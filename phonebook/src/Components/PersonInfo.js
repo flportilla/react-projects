@@ -5,7 +5,9 @@ function PersonInfo({ list, deleteContact }) {
     <>
       {
         list.map(person => {
-          return <div key={person.id}>
+          return <li
+            className='note'
+            key={person.id}>
             {person.name} - {person.number}
             <button
               id={person.id}
@@ -13,7 +15,7 @@ function PersonInfo({ list, deleteContact }) {
               type='button'>
               delete
             </button>
-          </div>
+          </li >
         })
       }
     </>

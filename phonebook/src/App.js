@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import './App.css'
 import Filter from './Components/Filter'
 import Form from './Components/Form'
 import PersonInfo from './Components/PersonInfo'
 import contactServices from './services/phone-contacts'
+import Notification from './Components/Notification'
 
 const App = () => {
 
@@ -11,12 +13,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('000-123456')
   const [persons, setPersons] = useState([])
   const [list, setList] = useState([])
+  const [modalNotification, setModalNotification] = useState('')
 
   useEffect(() => {
     contactServices
       .getContacts()
       .then(contacts => { return setPersons(contacts), setList(contacts) })
-  }, [addPerson])
+  }, [modalNotification])
 
   //Functions
   function getName(event) {
@@ -36,25 +39,30 @@ const App = () => {
       number: newNumber,
     }
 
-
     if (persons.find(person => person.name === newName)) {
 
       const repeatedContact = persons.find(person => person.name === newName)
       const confirm = window.confirm(`'${repeatedContact.name} is already added to phonebook, replace the old number with a new one?'`)
 
       if (confirm) {
+
         contactServices
           .updateContact(repeatedContact.id, personObject)
+
+        setModalNotification('UPDATE')
+        setTimeout(() => setModalNotification(''), 1000)
       }
       else return
-
     }
     else {
+
       contactServices
         .addContact(personObject)
         .then(contacts => setPersons(contacts))
-    }
 
+      setModalNotification('ADD')
+      setTimeout(() => setModalNotification(''), 1000)
+    }
 
     setNewName('')
     setNewNumber('')
@@ -78,6 +86,8 @@ const App = () => {
     const confirm = window.confirm(`Delete '${contactSelected.name}'?`)
 
     if (confirm) {
+      setModalNotification('REMOVE')
+      setTimeout(() => setModalNotification(''), 1000)
       contactServices
         .removeContact(selectedId)
     }
@@ -85,7 +95,11 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='App'>
+
+      <Notification
+        message={modalNotification} />
+
       <h2>Phonebook</h2>
       <Filter
         onChange={filter}
@@ -100,11 +114,13 @@ const App = () => {
         newNumber={newNumber}
       />
 
-      <h2>Numbers</h2>
-      <PersonInfo
-        deleteContact={removeContact}
-        list={list}
-      />
+      <ul>
+        <h2>Numbers</h2>
+        <PersonInfo
+          deleteContact={removeContact}
+          list={list}
+        />
+      </ul>
     </div>
   )
 }

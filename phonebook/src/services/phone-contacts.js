@@ -21,8 +21,4 @@ function updateContact(id, personObj) {
   return axios.put(`${baseUrl}/${id}`, personObj)
 }
 
-// const update = (id, newObject) => {
-//   return axios.put(`${baseUrl}/${id}`, newObject)
-// }
-
 export default { getContacts, addContact, removeContact, updateContact }
