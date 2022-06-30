@@ -1,17 +1,17 @@
 import React from 'react'
 import '../App.css'
 
-export default function Notification({ message }) {
+export default function Notification({ modalNotification, notificationContent }) {
 
-  switch (message) {
-    case 'ADD':
-      return <div className='add'>Contact added</div>
+  switch (modalNotification) {
+    case 'ADDING':
+      return <div className='add'>{notificationContent}</div>
       break;
-    case 'REMOVE':
-      return <div className='remove'>Contact removed</div>
+    case 'REMOVING':
+      return <div className='remove'>{notificationContent}</div>
       break;
-    case 'UPDATE':
-      return <div className='update'>Contact updated</div>
+    case 'UPDATING':
+      return <div className='update'>{notificationContent}</div>
       break;
     default: return <></>
       break;

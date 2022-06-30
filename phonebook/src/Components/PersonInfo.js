@@ -1,6 +1,18 @@
 import React from 'react'
 
-function PersonInfo({ list, deleteContact }) {
+function PersonInfo({ list, deleteContact, modalNotification }) {
+
+
+  let buttonStatus =
+    modalNotification == 'ADDING'
+      ? true
+      : modalNotification == 'UPDATING'
+        ? true
+        : modalNotification == 'REMOVING'
+          ? true
+          : false
+
+
   return (
     <>
       {
@@ -12,7 +24,9 @@ function PersonInfo({ list, deleteContact }) {
             <button
               id={person.id}
               onClick={deleteContact}
-              type='button'>
+              type='button'
+              disabled={buttonStatus}
+            >
               delete
             </button>
           </li >

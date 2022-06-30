@@ -13,7 +13,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('000-123456')
   const [persons, setPersons] = useState([])
   const [list, setList] = useState([])
-  const [modalNotification, setModalNotification] = useState('')
+  const [modalNotification, setModalNotificationStatus] = useState('')
+  const [notificationContent, setNotificationContent] = useState('')
 
   useEffect(() => {
     contactServices
@@ -45,12 +46,12 @@ const App = () => {
       const confirm = window.confirm(`'${repeatedContact.name} is already added to phonebook, replace the old number with a new one?'`)
 
       if (confirm) {
-
         contactServices
           .updateContact(repeatedContact.id, personObject)
 
-        setModalNotification('UPDATE')
-        setTimeout(() => setModalNotification(''), 1000)
+        setModalNotificationStatus('UPDATING')
+        setNotificationContent(`information for ${repeatedContact.name} has been updated`)
+        setTimeout(() => setModalNotificationStatus(''), 2000)
       }
       else return
     }
@@ -60,8 +61,9 @@ const App = () => {
         .addContact(personObject)
         .then(contacts => setPersons(contacts))
 
-      setModalNotification('ADD')
-      setTimeout(() => setModalNotification(''), 1000)
+      setNotificationContent(`Contact '${personObject.name}' has been added`)
+      setModalNotificationStatus('ADDING')
+      setTimeout(() => setModalNotificationStatus(''), 2000)
     }
 
     setNewName('')
@@ -86,8 +88,9 @@ const App = () => {
     const confirm = window.confirm(`Delete '${contactSelected.name}'?`)
 
     if (confirm) {
-      setModalNotification('REMOVE')
-      setTimeout(() => setModalNotification(''), 1000)
+      setNotificationContent(`'${contactSelected.name}' has been removed from your contacts`)
+      setModalNotificationStatus('REMOVING')
+      setTimeout(() => setModalNotificationStatus(''), 2000)
       contactServices
         .removeContact(selectedId)
     }
@@ -98,7 +101,9 @@ const App = () => {
     <div className='App'>
 
       <Notification
-        message={modalNotification} />
+        modalNotification={modalNotification}
+        notificationContent={notificationContent}
+      />
 
       <h2>Phonebook</h2>
       <Filter
@@ -112,13 +117,15 @@ const App = () => {
         getNumber={getNumber}
         newName={newName}
         newNumber={newNumber}
+        modalNotification={modalNotification}
       />
-
+      <h2>Numbers</h2>
       <ul>
-        <h2>Numbers</h2>
+
         <PersonInfo
           deleteContact={removeContact}
           list={list}
+          modalNotification={modalNotification}
         />
       </ul>
     </div>

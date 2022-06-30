@@ -1,6 +1,8 @@
 import React from 'react'
 
-function Form({ addPerson, getName, getNumber, newName, newNumber }) {
+function Form({ addPerson, getName, getNumber, newName, newNumber, modalNotification }) {
+
+  let buttonStatus = modalNotification == 'ADDING' ? true : false
 
   return (
     <form>
@@ -22,6 +24,7 @@ function Form({ addPerson, getName, getNumber, newName, newNumber }) {
         <button
           type="submit"
           onClick={addPerson}
+          disabled={buttonStatus}
         >
           add</button>
       </div>
