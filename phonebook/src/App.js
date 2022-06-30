@@ -1,21 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Filter from './Components/Filter'
 import Form from './Components/Form'
 import PersonInfo from './Components/PersonInfo'
+import axios from 'axios'
 
 const App = () => {
 
   //States
   const [newName, setNewName] = useState('Name')
   const [newNumber, setNewNumber] = useState('000-123456')
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ])
+  const [persons, setPersons] = useState([])
+  const [list, setList] = useState([])
 
-  const [list, setList] = useState(persons)
+  const getPersons = () => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => { return setPersons(response.data), setList(response.data) })
+
+  }
+  useEffect(getPersons, [])
+
 
 
   //Functions
@@ -29,7 +33,7 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: list.length + 1
+      id: persons.length + 1
     }
 
     if (persons.find(person => person.name === newName)) {
@@ -38,19 +42,14 @@ const App = () => {
     }
 
     setPersons(persons.concat(personObject))
-    setList([...list, personObject])
-
     setNewName('')
     setNewNumber('')
   }
 
   function filter(event) {
     const filterValue = (event.target.value).toLowerCase()
-
-    const filterDoneRight = persons.filter(person => {
-      return (person.name).toLowerCase().includes(filterValue)
-    })
-    setList([...filterDoneRight])
+    const filteredContacts = persons.filter(person => person.name.toLowerCase().includes(filterValue))
+    setList(filteredContacts)
   }
 
   return (
