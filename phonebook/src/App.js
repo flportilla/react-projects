@@ -19,8 +19,13 @@ const App = () => {
   }, [addPerson])
 
   //Functions
-  const getName = (event) => setNewName(event.target.value)
-  const getNumber = (event) => setNewNumber(event.target.value)
+  function getName(event) {
+    setNewName(event.target.value)
+  }
+
+  function getNumber(event) {
+    setNewNumber(event.target.value)
+  }
 
   function addPerson(event) {
 
@@ -55,12 +60,17 @@ const App = () => {
     setList(filteredContacts)
   }
 
-  function deleteContact(event) {
+  function removeContact(event) {
 
-    const contactSelected = event.target.id
-    contactServices
-      .removeContact(contactSelected)
+    const selectedId = event.target.id
+    const contactSelected = persons.find(person => person.id == selectedId)
+    const confirm = window.confirm(`Delete '${contactSelected.name}'?`)
 
+    if (confirm) {
+      contactServices
+        .removeContact(selectedId)
+    }
+    else return
   }
 
   return (
@@ -81,7 +91,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <PersonInfo
-        deleteContact={deleteContact}
+        deleteContact={removeContact}
         list={list}
       />
     </div>
