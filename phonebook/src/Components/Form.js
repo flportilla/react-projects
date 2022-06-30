@@ -6,17 +6,16 @@ function Form({ addPerson, getName, getNumber, newName, newNumber }) {
     <form>
       <div key={'name'}>
         name:
-        <input key={newName}
-          onChange={getName}
+        <input
           value={newName}
+          onChange={getName}
         />
       </div>
       <div key={'number'}>
         number:
         <input
-          key={newNumber}
-          onChange={getNumber}
           value={newNumber}
+          onChange={getNumber}
         />
       </div>
       <div key={'add'}>

@@ -16,24 +16,20 @@ const App = () => {
     axios
       .get('http://localhost:3001/persons')
       .then(response => { return setPersons(response.data), setList(response.data) })
-
   }
   useEffect(getPersons, [])
-
-
 
   //Functions
   const getName = (event) => setNewName(event.target.value)
   const getNumber = (event) => setNewNumber(event.target.value)
 
-  function addPerson(event) {
+  async function addPerson(event) {
 
     event.preventDefault()
 
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1
     }
 
     if (persons.find(person => person.name === newName)) {
@@ -41,14 +37,25 @@ const App = () => {
       return
     }
 
-    setPersons(persons.concat(personObject))
+    await axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        setPersons(response.data)
+        getPersons()
+      })
+
     setNewName('')
     setNewNumber('')
   }
 
   function filter(event) {
     const filterValue = (event.target.value).toLowerCase()
-    const filteredContacts = persons.filter(person => person.name.toLowerCase().includes(filterValue))
+
+    const filteredContacts = persons
+      .filter(person =>
+        person.name.toLowerCase()
+          .includes(filterValue))
+
     setList(filteredContacts)
   }
 
