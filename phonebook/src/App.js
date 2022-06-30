@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Filter from './Components/Filter'
 import Form from './Components/Form'
 import PersonInfo from './Components/PersonInfo'
-import axios from 'axios'
+import contactServices from './services/phone-contacts'
 
 const App = () => {
 
@@ -12,18 +12,17 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [list, setList] = useState([])
 
-  const getPersons = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => { return setPersons(response.data), setList(response.data) })
-  }
-  useEffect(getPersons, [])
+  useEffect(() => {
+    contactServices
+      .getContacts()
+      .then(contacts => { return setPersons(contacts), setList(contacts) })
+  }, [addPerson])
 
   //Functions
   const getName = (event) => setNewName(event.target.value)
   const getNumber = (event) => setNewNumber(event.target.value)
 
-  async function addPerson(event) {
+  function addPerson(event) {
 
     event.preventDefault()
 
@@ -37,12 +36,9 @@ const App = () => {
       return
     }
 
-    await axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        setPersons(response.data)
-        getPersons()
-      })
+    contactServices
+      .addContact(personObject)
+      .then(contacts => setPersons(contacts))
 
     setNewName('')
     setNewNumber('')
@@ -57,6 +53,14 @@ const App = () => {
           .includes(filterValue))
 
     setList(filteredContacts)
+  }
+
+  function deleteContact(event) {
+
+    const contactSelected = event.target.id
+    contactServices
+      .removeContact(contactSelected)
+
   }
 
   return (
@@ -77,6 +81,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <PersonInfo
+        deleteContact={deleteContact}
         list={list}
       />
     </div>
