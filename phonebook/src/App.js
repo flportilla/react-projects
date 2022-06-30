@@ -36,14 +36,25 @@ const App = () => {
       number: newNumber,
     }
 
+
     if (persons.find(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
-      return
+
+      const repeatedContact = persons.find(person => person.name === newName)
+      const confirm = window.confirm(`'${repeatedContact.name} is already added to phonebook, replace the old number with a new one?'`)
+
+      if (confirm) {
+        contactServices
+          .updateContact(repeatedContact.id, personObject)
+      }
+      else return
+
+    }
+    else {
+      contactServices
+        .addContact(personObject)
+        .then(contacts => setPersons(contacts))
     }
 
-    contactServices
-      .addContact(personObject)
-      .then(contacts => setPersons(contacts))
 
     setNewName('')
     setNewNumber('')
