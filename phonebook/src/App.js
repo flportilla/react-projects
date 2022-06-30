@@ -29,6 +29,7 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
+      id: list.length + 1
     }
 
     if (persons.find(person => person.name === newName)) {
@@ -38,7 +39,7 @@ const App = () => {
 
     setPersons(persons.concat(personObject))
     setList([...list, personObject])
-    console.log(list)
+
     setNewName('')
     setNewNumber('')
   }

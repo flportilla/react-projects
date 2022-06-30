@@ -6,7 +6,7 @@ function Form({ addPerson, getName, getNumber, newName, newNumber }) {
     <form>
       <div key={'name'}>
         name:
-        <input
+        <input key={newName}
           onChange={getName}
           value={newName}
         />
@@ -14,6 +14,7 @@ function Form({ addPerson, getName, getNumber, newName, newNumber }) {
       <div key={'number'}>
         number:
         <input
+          key={newNumber}
           onChange={getNumber}
           value={newNumber}
         />
