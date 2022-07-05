@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import './App.css'
 import Filter from './Components/Filter'
 import Form from './Components/Form'
@@ -12,14 +12,14 @@ const App = () => {
   const [newName, setNewName] = useState('Name')
   const [newNumber, setNewNumber] = useState('000-123456')
   const [persons, setPersons] = useState([])
-  const [list, setList] = useState([])
+  const [filterValue, setFilterValue] = useState('')
   const [modalNotification, setModalNotificationStatus] = useState('')
   const [notificationContent, setNotificationContent] = useState('')
 
   useEffect(() => {
     contactServices
       .getContacts()
-      .then(contacts => { return setPersons(contacts), setList(contacts) })
+      .then(contacts => setPersons(contacts))
   }, [modalNotification])
 
   //Functions
@@ -31,10 +31,9 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
-  function addPerson(event) {
+  async function addPerson(event) {
 
     event.preventDefault()
-
     const personObject = {
       name: newName,
       number: newNumber,
@@ -46,20 +45,17 @@ const App = () => {
       const confirm = window.confirm(`'${repeatedContact.name} is already added to phonebook, replace the old number with a new one?'`)
 
       if (confirm) {
-        contactServices
+        await contactServices
           .updateContact(repeatedContact.id, personObject)
 
         setModalNotificationStatus('UPDATING')
         setNotificationContent(`information for ${repeatedContact.name} has been updated`)
         setTimeout(() => setModalNotificationStatus(''), 2000)
       }
-      else return
     }
     else {
-
-      contactServices
+      await contactServices
         .addContact(personObject)
-        .then(contacts => setPersons(contacts))
 
       setNotificationContent(`Contact '${personObject.name}' has been added`)
       setModalNotificationStatus('ADDING')
@@ -71,15 +67,16 @@ const App = () => {
   }
 
   function filter(event) {
-    const filterValue = (event.target.value).toLowerCase()
 
-    const filteredContacts = persons
+    setFilterValue(event.target.value)
+  }
+
+  const list = useMemo(() => {
+    return persons
       .filter(person =>
         person.name.toLowerCase()
-          .includes(filterValue))
-
-    setList(filteredContacts)
-  }
+          .includes(filterValue.toLowerCase()))
+  }, [filterValue, persons])
 
   function removeContact(event) {
 
@@ -121,7 +118,6 @@ const App = () => {
       />
       <h2>Numbers</h2>
       <ul>
-
         <PersonInfo
           deleteContact={removeContact}
           list={list}

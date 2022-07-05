@@ -7,9 +7,10 @@ function getContacts() {
   return request.then(response => response.data)
 }
 
-function addContact(personObj) {
-  const request = axios.post(baseUrl, personObj)
-  return request.then(response => response.data)
+async function addContact(personObj) {
+
+  const response = await axios.post(baseUrl, personObj)
+  return response.data
 }
 
 function removeContact(id) {
